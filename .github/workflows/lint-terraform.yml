@@ -1,4 +1,4 @@
-name: Terraform lint
+name: Terraform linter
 on:
   pull_request:
 
@@ -27,5 +27,9 @@ jobs:
       - name: Init TFLint
         run: tflint --init
 
-      - name: Run TFLint
-        run: tflint -f compact
+      - name: Run TFLint on all directories with .tf files
+        run: |
+          find . -name "*.tf" -exec dirname {} \; | sort -u | while read dir; do
+            echo "Running TFLint in $dir"
+            tflint --chdir="$dir" -f compact 
+          done
