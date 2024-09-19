@@ -1,4 +1,4 @@
-name: Terraform lint
+name: Terraform linter
 on:
   pull_request:
 
